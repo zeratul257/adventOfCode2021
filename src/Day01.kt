@@ -1,17 +1,27 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    fun part1(input: List<Int>): Int {
+        var firstValue = input.first()
+        var counter = 0
+        input.forEach {
+            if(it > firstValue)
+                counter++
+            firstValue = it
+        }
+        return counter
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun part2(input: List<Int>): Int {
+        var counter = 0
+        for(i in 0..(input.size-4)){
+            val compareFirst = input.slice(i..i+2).sum()
+            val compareSecond = input.slice(i+1..i+3).sum()
+            if(compareSecond > compareFirst)
+                counter++
+        }
+        return counter
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    val input = readInput("Day01").map{ it.trim().toInt() }
+    println("Part 1 : "+part1(input))
+    println("Part 2 : "+part2(input))
 }
